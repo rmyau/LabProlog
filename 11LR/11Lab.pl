@@ -52,3 +52,8 @@ parent(zhdana,zlatomir).
 father(X,Y) :-  parent(X,Y), man(X),!.
 %выводит отца Х
 father(X):- parent(Y,X), man(Y), write(Y), nl, fail.
+
+%12.1 предикат проверяет, является ли Х сестрой Y
+sister(X,Y):- parent(Z,X), parent(Z,Y), woman(X).
+%12.2 выводит всех сестер для Х
+sister(X):-sister(Y,X), write(Y), nl, fail.
