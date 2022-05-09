@@ -78,3 +78,10 @@ multCifrDown(0,Res,Res):-!.
 multCifrDown(X,Mult,CurMult):- X1 is X mod 10, NowMult is CurMult*X1,
     X2 is X div 10, multCifrDown(X2,Mult,NowMult).
 
+%17 количество нечетных цифр числа, больших 3
+%17 рекурсия вверх
+countCifr3Up(0,0):-!.
+countCifr3Up(X,Count):- Dig is X mod 10,X1 is X div 10,
+    countCifr3Up(X1,NewCount),
+    (Dig>3,1 is Dig mod 2 , Count is NewCount+1; Count is NewCount),!.
+
