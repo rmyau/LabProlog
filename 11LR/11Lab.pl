@@ -73,3 +73,8 @@ multCifrUp(0,1):-!.
 multCifrUp(X,Mult) :- X1 is X div 10, multCifrUp(X1,NowMult),
     X2 is X mod 10,Mult is X2*NowMult,!.
 
+%16 найти произведение цифр числа с помощью рекурсии вниз
+multCifrDown(0,Res,Res):-!.
+multCifrDown(X,Mult,CurMult):- X1 is X mod 10, NowMult is CurMult*X1,
+    X2 is X div 10, multCifrDown(X2,Mult,NowMult).
+
