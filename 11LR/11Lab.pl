@@ -63,3 +63,7 @@ grand_ma(X,Y):-woman(X),parent(X,Z), parent(Z,Y),!.
 %13.2 вывод всех бабушек Х
 grand_ma(X):- parent(Y,Z), parent(Z,X), woman(Y), write(Y), nl, fail.
 
+%14 являются ли Х и Y бабушкой и внуком или внуком и бабушкой
+grand_ma_and_son(X,Y):-
+    woman(X),man(Y),parent(X,Z), parent(Z,Y),!;
+    woman(Y),man(X),parent(Y,Z), parent(Z,X),!.
