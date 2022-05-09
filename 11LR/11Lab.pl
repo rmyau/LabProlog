@@ -67,3 +67,9 @@ grand_ma(X):- parent(Y,Z), parent(Z,X), woman(Y), write(Y), nl, fail.
 grand_ma_and_son(X,Y):-
     woman(X),man(Y),parent(X,Z), parent(Z,Y),!;
     woman(Y),man(X),parent(Y,Z), parent(Z,X),!.
+
+%15 найти произведение цифр числа с помощью рекурсии вверх
+multCifrUp(0,1):-!.
+multCifrUp(X,Mult) :- X1 is X div 10, multCifrUp(X1,NowMult),
+    X2 is X mod 10,Mult is X2*NowMult,!.
+
