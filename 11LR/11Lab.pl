@@ -57,3 +57,9 @@ father(X):- parent(Y,X), man(Y), write(Y), nl, fail.
 sister(X,Y):- parent(Z,X), parent(Z,Y), woman(X).
 %12.2 выводит всех сестер для Х
 sister(X):-sister(Y,X), write(Y), nl, fail.
+
+%13.1 является ли Х бабушкой Y
+grand_ma(X,Y):-woman(X),parent(X,Z), parent(Z,Y),!.
+%13.2 вывод всех бабушек Х
+grand_ma(X):- parent(Y,Z), parent(Z,X), woman(Y), write(Y), nl, fail.
+
