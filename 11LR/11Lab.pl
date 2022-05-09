@@ -92,3 +92,10 @@ countCifr3Down(X,Count,CurCount):- X1 is X mod 10,
     (X1>3,1 is X1 mod 2, NowCount is CurCount+1;NowCount is CurCount),
     X2 is X div 10, countCifr3Down(X2,Count,NowCount).
 
+%19 Фибоначчи, X - число с номером N
+fibUp(1,1):-!.
+fibUp(2,1):-!.
+fibUp(N,X):-N1 is N-1,N2 is N-2, fibUp(N1,NewX1),fibUp(N2,NewX2),
+    X is NewX1+NewX2.
+
+
