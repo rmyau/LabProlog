@@ -85,3 +85,10 @@ countCifr3Up(X,Count):- Dig is X mod 10,X1 is X div 10,
     countCifr3Up(X1,NewCount),
     (Dig>3,1 is Dig mod 2 , Count is NewCount+1; Count is NewCount),!.
 
+%18 рекурсия вниз
+countCifr3Down(X,Y):-countCifr3Down(X,Y,0),!.
+countCifr3Down(0,Res,Res):-!.
+countCifr3Down(X,Count,CurCount):- X1 is X mod 10,
+    (X1>3,1 is X1 mod 2, NowCount is CurCount+1;NowCount is CurCount),
+    X2 is X div 10, countCifr3Down(X2,Count,NowCount).
+
