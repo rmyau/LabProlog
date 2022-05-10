@@ -51,3 +51,16 @@ lenList([H|T],Res):-lenList([H|T],Res,0).
 lenList([],Res,Res):-!.
 lenList([_|T], Res,NowRes):-NewRes is NowRes+1, 
     lenList(T,Res,NewRes).
+
+%15.1 количество элементов после последнего максимального
+
+%поиск индекса последнего максимального
+indMax([H|T], Ind):-indMax(T,Ind,0,1,H).
+indMax([],Ind,Ind,_,_):-!.
+indMax([H|T],Ind,IndMax,NowInd,MaxEl):-
+    (H>=MaxEl, NewIndMax is NowInd,NewMax is H;
+    NewIndMax is IndMax,NewMax is MaxEl),
+    NewNowInd is NowInd+1,
+    indMax(T,Ind,NewIndMax,NewNowInd,NewMax). 
+countAfterMax([H|T]):-lenList([H|T],Len),
+    indMax([H|T],IndMax),X is Len-IndMax-1,write(X).
