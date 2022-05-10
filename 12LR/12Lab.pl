@@ -90,12 +90,15 @@ task16:-write("Input lenght for list: "), read(Count),readList(Count,List),
 %объединение списков
 concat([], List2, List2).
 concat([H|T], List2, [H|NewList]) :- concat(T, List2, NewList).
-
+%List - итоговый список
 moveBeforeMin([H|T],List):-indMin([H|T],IndMin),
     moveBeforeMin([H|T],List,IndMin,0,[]).
-moveBeforeMin(List1,[List1|List2],IndMin,IndMin,List2):-!.
-moveBeforeMin([H|T],List,IndMin,IndNow,ListBef):-NewInd is IndNow+1,
-    moveBeforeMin(T,List,IndMin,NewInd,[])
+moveBeforeMin(L1,List,IndMin,IndMin,L2):- concat(L1,L2,List),!.
+moveBeforeMin([H|T],List,IndMin,IndNow,NowList):- NewInd is IndNow+1, concat(NowList,[H],NewList),
+    moveBeforeMin(T,List,IndMin,NewInd,NewList).
+
+task17:- write("Input lenght for list: "), read(Count),readList(Count,List),moveBeforeMin(List,NewList),
+    write("New List: "),write_list(NewList),!.
 
 
 
