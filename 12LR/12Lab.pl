@@ -32,3 +32,16 @@ multDel(X,Del,Res,CurMult):-
     (0 is X mod Del,sumCifr(Del,Y),sumCifr(X,Z),Y<Z,
     NewMult is CurMult*Del; NewMult is CurMult),D1 is Del-1,
     multDel(X,D1,Res,NewMult).
+
+%13Найти количество всех пар дружных чисел до 10000
+sumDel(X,Sum):-sumDel(X,X,Sum,0),!.
+sumDel(_,0,Sum,Sum):-!.
+sumDel(X,Del,Sum,CurSum):-
+    (0 is X mod Del, NewSum is CurSum+Del; NewSum is CurSum),
+     D1 is Del-1, sumDel(X,D1,Sum,NewSum).
+
+countFriend(Res):-countFriend(1000,1000,Res,0).
+countFriend(0,0,Res,Res):-!.
+countFriend(X,0,Res,NowRes):-X1 is X-1,countFriend(X1,X1,Res,NowRes).
+countFriend(X,Y,Res,NowRes):-Y1 is Y-1, sumDel(X,DelX),sumDel(Y,DelY),
+    (X is Y ,NewRes is NowRes;(DelX is DelY, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
