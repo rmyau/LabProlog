@@ -100,5 +100,16 @@ moveBeforeMin([H|T],List,IndMin,IndNow,NowList):- NewInd is IndNow+1, concat(Now
 task17:- write("Input lenght for list: "), read(Count),readList(Count,List),moveBeforeMin(List,NewList),
     write("New List: "),write_list(NewList),!.
 
-
+%18.15 даны индекс и массив. Определить, является ли
+%элемент по указанному индексу локальным минимум
+isLocalMin([F,S|_],0):-F<S,!.
+isLocalMin([F,S|T],Ind):-localMin(F,S,T,Ind,1).
+localMin(F,S,[],Ind,Ind):-S<F,!.
+localMin(F,S,[Next|_],Ind,Ind):-S<F,S<Next,!.
+localMin(_,S,[Next|Tail],Ind,IndNow):-NextInd is IndNow+1,
+    localMin(S,Next,Tail,Ind,NextInd).
+    
+task18:-write("Input lenght for list: "), read(Count),readList(Count,List),
+    write("Input index less then lenght: "),read(Index),
+    write("This element is local min - "), isLocalMin(List,Index).
 
