@@ -113,3 +113,14 @@ task18:-write("Input lenght for list: "), read(Count),readList(Count,List),
     write("Input index less then lenght: "),read(Index),
     write("This element is local min - "), isLocalMin(List,Index).
 
+%19.25 дан массив и интервал a..b, найти макс из эл в этом интервале
+maxInterval([H|T],(A,B),Res):-(H>A,H<B, maxInterval(T,(A,B),H,Res));maxInterval(T,(A,B),Res),!.
+maxInterval([],_,Max,Max):-!.
+maxInterval([H|T],(A,B),Max,Res):-(H>Max,H<B,H>A,NewMax is H; NewMax is Max),
+    maxInterval(T,(A,B),NewMax,Res).
+
+task19:-write("Input lenght for list: "), read(Count),readList(Count,List),
+    write("Input a: "),read(A),write("Input b: "),read(B),
+    maxInterval(List,(A,B),Res),
+    write("Max element in (a,b) is "), write(Res),!.
+
