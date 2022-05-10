@@ -45,3 +45,9 @@ countFriend(0,0,Res,Res):-!.
 countFriend(X,0,Res,NowRes):-X1 is X-1,countFriend(X1,X1,Res,NowRes).
 countFriend(X,Y,Res,NowRes):-Y1 is Y-1, sumDel(X,DelX),sumDel(Y,DelY),
     (X is Y ,NewRes is NowRes;(DelX is DelY, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
+
+%14 Найти длину списка
+lenList([H|T],Res):-lenList([H|T],Res,0).
+lenList([],Res,Res):-!.
+lenList([_|T], Res,NowRes):-NewRes is NowRes+1, 
+    lenList(T,Res,NewRes).
