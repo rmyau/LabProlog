@@ -62,5 +62,17 @@ indMax([H|T],Ind,IndMax,NowInd,MaxEl):-
     NewIndMax is IndMax,NewMax is MaxEl),
     NewNowInd is NowInd+1,
     indMax(T,Ind,NewIndMax,NewNowInd,NewMax). 
+
 countAfterMax([H|T]):-lenList([H|T],Len),
     indMax([H|T],IndMax),X is Len-IndMax-1,write(X).
+
+%16.2 найти индекс минимального элемента
+indMin([H|T],Ind):-indMin(T,Ind,0,1,H).
+indMin([],Ind,Ind,_,_):-!.
+indMin([H|T],Ind,IndMin,NowInd,MinEl):-
+    (H<MinEl, NewIndMin is NowInd, NewMin is H;
+    NewIndMin is IndMin, NewMin is MinEl),
+    NewNowInd is NowInd+1,
+    indMin(T,Ind,NewIndMin,NewNowInd,NewMin).
+
+
