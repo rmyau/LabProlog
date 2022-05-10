@@ -52,6 +52,12 @@ lenList([],Res,Res):-!.
 lenList([_|T], Res,NowRes):-NewRes is NowRes+1, 
     lenList(T,Res,NewRes).
 
+
+readList(0, []) :- !.
+readList(I, [X|T]) :- write("input - "),read(X), I1 is I - 1, readList(I1, T).
+
+write_list([]) :- !.
+write_list([X|T]) :- write(X), nl, write_list(T).
 %15.1 количество элементов после последнего максимального
 
 %поиск индекса последнего максимального
@@ -63,8 +69,10 @@ indMax([H|T],Ind,IndMax,NowInd,MaxEl):-
     NewNowInd is NowInd+1,
     indMax(T,Ind,NewIndMax,NewNowInd,NewMax). 
 
-countAfterMax([H|T]):-lenList([H|T],Len),
-    indMax([H|T],IndMax),X is Len-IndMax-1,write(X).
+task15:-write("Input lenght for list: "), read(Count),readList(Count,List),
+    write("Number of elements after max: "),
+    lenList(List,Len),indMax(List,IndMax),
+    X is Len-IndMax-1, write(X),!.
 
 %16.2 найти индекс минимального элемента
 indMin([H|T],Ind):-indMin(T,Ind,0,1,H).
@@ -74,5 +82,20 @@ indMin([H|T],Ind,IndMin,NowInd,MinEl):-
     NewIndMin is IndMin, NewMin is MinEl),
     NewNowInd is NowInd+1,
     indMin(T,Ind,NewIndMin,NewNowInd,NewMin).
+task16:-write("Input lenght for list: "), read(Count),readList(Count,List),
+    write("Index of min: "),indMin(List,Ind), write(Ind),!.
+
+%17.13 разместить элементы до минимального в конце массива
+
+%объединение списков
+concat([], List2, List2).
+concat([H|T], List2, [H|NewList]) :- concat(T, List2, NewList).
+
+moveBeforeMin([H|T],List):-indMin([H|T],IndMin),
+    moveBeforeMin([H|T],List,IndMin,0,[]).
+moveBeforeMin(List1,[List1|List2],IndMin,IndMin,List2):-!.
+moveBeforeMin([H|T],List,IndMin,IndNow,ListBef):-NewInd is IndNow+1,
+    moveBeforeMin(T,List,IndMin,NewInd,[])
+
 
 
