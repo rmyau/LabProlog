@@ -124,3 +124,23 @@ task19:-write("Input lenght for list: "), read(Count),readList(Count,List),
     maxInterval(List,(A,B),Res),
     write("Max element in (a,b) is "), write(Res),!.
 
+%20.28 найти элементы между первым и последним максимальным
+%находит индексы для максимального элемента
+indMaxPair([H|T],(IF,IL)):-indMaxPair(T,(IF,IL),(0,0),H,1).
+indMaxPair([],(IF,IL),(IF,IL),_,_):-!.
+indMaxPair([H|T],(First,Last),(I1,I2),El,IndNow):-
+    (H>El,IF is IndNow,IL is IndNow,NewEl is H;
+    H is El, IL is IndNow, IF is I1,NewEl is H;
+    IF is I1, IL is I2,NewEl is El),
+    NextInd is IndNow+1,
+    indMaxPair(T,(First,Last),(IF,IL),NewEl,NextInd).
+%List2 - искомые элементы
+findBetwMax(List,List2):-indMaxPair(List,(I1,I2)),findBetwMax(List,(I1,I2),List2,0,[]),!.
+findBetwMax(_,(_,I2),List2,I2,List2):-!.
+findBetwMax([H|T],(I1,I2),List2,NowInd,NowList):- 
+    NewInd is NowInd+1,
+    (NowInd>I1,concat(NowList,[H],Res),findBetwMax(T,(I1,I2),List2,NewInd,Res);
+    findBetwMax(T,(I1,I2),List2,NewInd,NowList)).
+
+task20:-write("Input lenght for list: "), read(Count),readList(Count,List),
+    write("Elements between max: "), findBetwMax(List,X),nl, write_list(X).    
