@@ -100,7 +100,7 @@ fibUp(N,X):-N1 is N-1,N2 is N-2, fibUp(N1,NewX1),fibUp(N2,NewX2),
     X is NewX1+NewX2.
 
 %20 Фибоначчи вниз
-fibDown(N,X):-fibDown(N-1,1,0,X).
+fibDown(N,X):-N1 is N-1,fibDown(N1,1,0,X).
 fibDown(0,Result,_,Result):-!.
 fibDown(N,X1,X2,Result):-X is X1+X2, N1 is N-1,
     fibDown(N1,X,X1,Result).
