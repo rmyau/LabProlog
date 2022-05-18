@@ -44,7 +44,7 @@ countFriend(Res):-countFriend(1000,1000,Res,0).
 countFriend(0,0,Res,Res):-!.
 countFriend(X,0,Res,NowRes):-X1 is X-1,countFriend(X1,X1,Res,NowRes).
 countFriend(X,Y,Res,NowRes):-Y1 is Y-1, sumDel(X,DelX),sumDel(Y,DelY),
-    (X is Y ,NewRes is NowRes;(DelX is DelY, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
+    (X is Y ,NewRes is NowRes,!;(DelX is DelY, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
 
 %14 Найти длину списка
 lenList([H|T],Res):-lenList([H|T],Res,0).
@@ -64,7 +64,7 @@ write_list([X|T]) :- write(X), nl, write_list(T).
 indMax([H|T], Ind):-indMax(T,Ind,0,1,H).
 indMax([],Ind,Ind,_,_):-!.
 indMax([H|T],Ind,IndMax,NowInd,MaxEl):-
-    (H>=MaxEl, NewIndMax is NowInd,NewMax is H;
+    (H>=MaxEl, NewIndMax is NowInd,NewMax is H,!;
     NewIndMax is IndMax,NewMax is MaxEl),
     NewNowInd is NowInd+1,
     indMax(T,Ind,NewIndMax,NewNowInd,NewMax). 
@@ -78,7 +78,7 @@ task15:-write("Input lenght of list: "), read(Count),readList(Count,List),
 indMin([H|T],Ind):-indMin(T,Ind,0,1,H).
 indMin([],Ind,Ind,_,_):-!.
 indMin([H|T],Ind,IndMin,NowInd,MinEl):-
-    (H<MinEl, NewIndMin is NowInd, NewMin is H;
+    (H<MinEl, NewIndMin is NowInd, NewMin is H,!;
     NewIndMin is IndMin, NewMin is MinEl),
     NewNowInd is NowInd+1,
     indMin(T,Ind,NewIndMin,NewNowInd,NewMin).
@@ -114,7 +114,7 @@ task18:-write("Input lenght of list: "), read(Count),readList(Count,List),
     write("This element is local min - "), isLocalMin(List,Index).
 
 %19.25 дан массив и интервал a..b, найти макс из эл в этом интервале
-maxInterval([H|T],(A,B),Res):-(H>A,H<B, maxInterval(T,(A,B),H,Res));maxInterval(T,(A,B),Res),!.
+maxInterval([H|T],(A,B),Res):-(H>A,H<B, maxInterval(T,(A,B),H,Res),!;maxInterval(T,(A,B),Res)).
 maxInterval([],_,Max,Max):-!.
 maxInterval([H|T],(A,B),Max,Res):-(H>Max,H<B,H>A,NewMax is H; NewMax is Max),
     maxInterval(T,(A,B),NewMax,Res).
