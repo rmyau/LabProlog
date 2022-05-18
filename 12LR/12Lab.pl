@@ -69,7 +69,7 @@ indMax([H|T],Ind,IndMax,NowInd,MaxEl):-
     NewNowInd is NowInd+1,
     indMax(T,Ind,NewIndMax,NewNowInd,NewMax). 
 
-task15:-write("Input lenght for list: "), read(Count),readList(Count,List),
+task15:-write("Input lenght of list: "), read(Count),readList(Count,List),
     write("Number of elements after max: "),
     lenList(List,Len),indMax(List,IndMax),
     X is Len-IndMax-1, write(X),!.
@@ -82,7 +82,7 @@ indMin([H|T],Ind,IndMin,NowInd,MinEl):-
     NewIndMin is IndMin, NewMin is MinEl),
     NewNowInd is NowInd+1,
     indMin(T,Ind,NewIndMin,NewNowInd,NewMin).
-task16:-write("Input lenght for list: "), read(Count),readList(Count,List),
+task16:-write("Input lenght of list: "), read(Count),readList(Count,List),
     write("Index of min: "),indMin(List,Ind), write(Ind),!.
 
 %17.13 разместить элементы до минимального в конце массива
@@ -97,7 +97,7 @@ moveBeforeMin(L1,List,IndMin,IndMin,L2):- concat(L1,L2,List),!.
 moveBeforeMin([H|T],List,IndMin,IndNow,NowList):- NewInd is IndNow+1, concat(NowList,[H],NewList),
     moveBeforeMin(T,List,IndMin,NewInd,NewList).
 
-task17:- write("Input lenght for list: "), read(Count),readList(Count,List),moveBeforeMin(List,NewList),
+task17:- write("Input lenght of list: "), read(Count),readList(Count,List),moveBeforeMin(List,NewList),
     write("New List: "),write_list(NewList),!.
 
 %18.15 даны индекс и массив. Определить, является ли
@@ -109,7 +109,7 @@ localMin(F,S,[Next|_],Ind,Ind):-S<F,S<Next,!.
 localMin(_,S,[Next|Tail],Ind,IndNow):-NextInd is IndNow+1,
     localMin(S,Next,Tail,Ind,NextInd).
     
-task18:-write("Input lenght for list: "), read(Count),readList(Count,List),
+task18:-write("Input lenght of list: "), read(Count),readList(Count,List),
     write("Input index less then lenght: "),read(Index),
     write("This element is local min - "), isLocalMin(List,Index).
 
@@ -119,7 +119,7 @@ maxInterval([],_,Max,Max):-!.
 maxInterval([H|T],(A,B),Max,Res):-(H>Max,H<B,H>A,NewMax is H; NewMax is Max),
     maxInterval(T,(A,B),NewMax,Res).
 
-task19:-write("Input lenght for list: "), read(Count),readList(Count,List),
+task19:-write("Input lenght of list: "), read(Count),readList(Count,List),
     write("Input a: "),read(A),write("Input b: "),read(B),
     maxInterval(List,(A,B),Res),
     write("Max element in (a,b) is "), write(Res),!.
@@ -142,5 +142,5 @@ findBetwMax([H|T],(I1,I2),List2,NowInd,NowList):-
     (NowInd>I1,concat(NowList,[H],Res),findBetwMax(T,(I1,I2),List2,NewInd,Res);
     findBetwMax(T,(I1,I2),List2,NewInd,NowList)).
 
-task20:-write("Input lenght for list: "), read(Count),readList(Count,List),
+task20:-write("Input lenght of list: "), read(Count),readList(Count,List),
     write("Elements between max: "), findBetwMax(List,X),nl, write_list(X).    
