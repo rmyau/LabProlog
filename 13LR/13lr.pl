@@ -55,4 +55,4 @@ newList13(List,[H|T],List2,NewList):-
    newList13(List,T,List2,NewList).
 
 task13:-write("Input lenght of list: "), read(Count),readList(Count,List),
-    newList13()
+    newList13(List,NewList), write("New List: "), nl, write_list(NewList).
