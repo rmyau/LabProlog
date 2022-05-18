@@ -91,3 +91,24 @@ task15:-
     in_list(Girls,[natasha,_,green]),
     write(Girls),!.
 
+%16
+task16:-
+    %Возраст 0 - 1 - 2
+    %имя - должность - возраст - братья/сестры                      
+    Friends = [_,_,_],
+    in_list(Friends,[_,slesar,0,0]),
+    in_list(Friends,[_,tokar,1,_]),
+    in_list(Friends,[_,svarshik,_,_]),
+    in_list(Friends,[borisov,_,_,1]),
+    in_list(Friends,[ivanov,_,_,_]),
+    in_list(Friends,[semenov,_,2,_]),
+    not(in_list(Friends,[semenov,tokar,_,_])),
+    in_list(Friends,[Name1,slesar,_,_]),
+    in_list(Friends,[Name2,tokar,_,_]),
+    in_list(Friends,[Name3,svarshik,_,_]),
+    write("result Name:"), nl, write("slesar - "), write(Name1),nl,
+    write("tokar  - "), write(Name2), nl,
+    write("svarshik - "),write(Name3),!.
+
+    
+
