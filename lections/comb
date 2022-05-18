@@ -34,10 +34,17 @@ b_a_r(A,N,Perm):-in_list_exlude(A,El,A1),N1 is N-1,b_a_r(A1,N1,[El|Perm]).
 sub_set([],[]).
 sub_set([H|Sub_set],[H|Set]):-sub_set(Sub_set,Set).
 sub_set(Sub_set,[H|Set]):-sub_set(Sub_set,Set).
-%работает криво
+
+
+%сочетания без повторений
 build_all_sochet:-
 	read_str(A,N),read(K),sochet(B,A,K),write_str(B),nl,fail.
 
 sochet([],_,0).
 sochet([H|Sub_set],[H|Set],K):-K1 is K-1, sochet(Sub_set,Set,K1).
+sochet(Sub_set,[H|Set],K):-sochet(Sub_set,Set,K).
+
+%сочетания с повторениями 
+sochet([],_,0).
+sochet([H|Sub_set],[H|Set],K):-K1 is K-1, sochet(Sub_set,[H|Set],K1).
 sochet(Sub_set,[H|Set],K):-sochet(Sub_set,Set,K).
