@@ -4,6 +4,17 @@ readList(I, [X|T]) :- write("input - "),read(X), I1 is I - 1, readList(I1, T).
 write_list([]) :- !.
 write_list([X|T]) :- write(X), nl, write_list(T).
 
+concat([], List2, List2).
+concat([H|T], List2, [H|NewList]) :- concat(T, List2, NewList).
+
+in_list([El|_],El).
+in_list([_|T],El):-in_list(T,El).
+
+unicList(List,List2):- unicList(List,List2,[]).
+unicList([],List,List):-!.
+unicList([H|T],List2,ListNow) :- in_list(ListNow,H), unicList(T,List2,ListNow),!;
+    concat(ListNow,[H],NewList), unicList(T,List2,NewList).
+
 %11.37 вывести индексы элементов, которые меньше своего левого соседа и их количество
 
 lessLeft([H|Tail],Count):-lessLeft(H,Tail,0, Count,1).
@@ -30,3 +41,18 @@ countMin([H|Tail],Min,CountNow,Count):-
 
 task12:-write("Input lenght of list: "), read(Count),readList(Count,List),
     countMin(List,C),write("Number of min: "), write(C), nl.
+
+%13.59 построить список из квадратов неотрицательных чисел меньших 100,  встречающихся больше 2 раз
+numEl(List,El,Count):- numEl(List,El,0,Count).
+numEl([],_,Count,Count):-!.
+numEl([El|T],El,CNow,Count):- NewCount is CNow +1, numEl(T,El,NewCount,Count),!.
+numEl([_|Tail],El,C,Count):- numEl(Tail,El,C,Count).
+
+newList13(List,NewL):-unicList(List,UnicL),newList13(List,UnicL,NewL,[]).
+newList13(_,[],List,List):-!.
+newList13(List,[H|T],List2,NewList):- 
+   H<100, H>0, numEl(List,H,C),C >2, K is H*H, concat(NewList,[K],NextList),newList13(List,T,List2,NextList),!;
+   newList13(List,T,List2,NewList).
+
+task13:-write("Input lenght of list: "), read(Count),readList(Count,List),
+    newList13()
