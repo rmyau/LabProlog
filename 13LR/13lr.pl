@@ -56,3 +56,17 @@ newList13(List,[H|T],List2,NewList):-
 
 task13:-write("Input lenght of list: "), read(Count),readList(Count,List),
     newList13(List,NewList), write("New List: "), nl, write_list(NewList).
+
+%14
+task14:-
+    Color = [_,_,_],
+    in_list(Color,[belokurov,_]),
+    in_list(Color,[chernov,_]),
+    in_list(Color,[ryzhov,_]),
+    in_list(Color,[_,blond]),
+    in_list(Color,[_,black]),
+    in_list(Color,[_,ginger]),
+    not(in_list(Color,[belokurov,blond])),
+    not(in_list(Color,[chernov,black])),
+    not(in_list(Color,[ryzhov,ginger])),
+    write(Color),!.
