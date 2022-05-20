@@ -164,6 +164,20 @@ task18:-
     not(in_list(Guys,[voronov,artist])),
     write(Guys),!.
 
+task19:-
+    Sportsman = [_,_,_],
+    %нация - имя - спорт - место
+    in_list(Sportsman, [_,maikl,basket,_]),
+    in_list(Sportsman, [american,_,_,_]),
+    in_list(Sportsman,[israel,saimon,_,_]),
+    in_list(Sportsman,[_,_,tennis,_]),
+    in_list(Sportsman,[_,_,kriket,1]),
+    in_list(Sportsman,[_,_,_,2]),
+    in_list(Sportsman,[_,_,_,3]),
+    in_list(Sportsman,[australian,Name,_,_]),
+    in_list(Sportsman,[_,richard,Sport,_]),
+    write("Australian is "), write(Name), nl,
+    write("Richard sport - "), write(Sport),!.
 
     
     
