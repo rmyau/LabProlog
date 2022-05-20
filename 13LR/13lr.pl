@@ -144,7 +144,27 @@ task17:-
     near(Jar,[cup,_],[banka,_]),
     near(Jar,[cup,_],[_,milk]),
     write(Jar),!.
-    
+
+task18:-
+    Guys=[_,_,_,_],
+    in_list(Guys,[voronov,_]),
+    in_list(Guys,[levitskiy,_]),
+    in_list(Guys,[pavlov,_]),
+    in_list(Guys,[saharov,_]),
+    in_list(Guys,[_,dancer]),
+    in_list(Guys,[_,artist]),
+    in_list(Guys,[_,singer]),
+    in_list(Guys,[_,writer]),
+    not(in_list(Guys,[voronov,singer])),
+    not(in_list(Guys,[levitskiy,singer])),
+    not(in_list(Guys,[pavlov,writer])),
+    not(in_list(Guys,[pavlov,artist])),
+    not(in_list(Guys,[voronov,writer])),
+    not(in_list(Guys,[saharov,writer])),
+    not(in_list(Guys,[voronov,artist])),
+    write(Guys),!.
+
+
     
     
 
