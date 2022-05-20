@@ -110,5 +110,43 @@ task16:-
     write("tokar  - "), write(Name2), nl,
     write("svarshik - "),write(Name3),!.
 
+%17
+
+between(List,X,Y,Z):-leftInList(List,X,Y),rightInList(List,Z,Y);
+    leftInList(List,Z,Y),rightInList(List,X,Y).
+ 
+%X слева от Y
+leftInList([_],_,_):-fail.
+leftInList([X,Y|_],X,Y).
+leftInList([_|List],X,Y):- leftInList(List,X,Y).
+%X справа от Y
+rightInList([_],_,_):-fail.
+rightInList([Y,X|_],X,Y).
+rightInList([_|List],X,Y):- rightInList(List,X,Y).
+
+near(List,X,Y):-rightInList(List,Y,X).
+near(List,X,Y):-leftInList(List,Y,X).
+task17:-
+    Jar = [_,_,_,_],
+    in_list(Jar,[bottle,_]),
+    in_list(Jar,[cup,_]),
+    in_list(Jar,[kuvshin,_]),
+    in_list(Jar,[banka,_]),
+    in_list(Jar,[_,milk]),
+    in_list(Jar,[_,water]),
+    in_list(Jar,[_,limonad]),
+    in_list(Jar,[_,kvas]),
+    not(in_list(Jar,[bottle,milk])),
+    not(in_list(Jar,[bottle,water])),
+    between(Jar,[kuvshin,_],[_,limonad],[_,kvas]),
+    not(in_list(Jar,[banka,water])),
+    not(in_list(Jar,[banka,limonad])),
+    near(Jar,[cup,_],[banka,_]),
+    near(Jar,[cup,_],[_,milk]),
+    write(Jar),!.
+    
+    
+    
+
     
 
