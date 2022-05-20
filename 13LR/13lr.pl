@@ -179,7 +179,29 @@ task19:-
     write("Australian is "), write(Name), nl,
     write("Richard sport - "), write(Sport),!.
 
+task20:-
+    People=[_,_,_,_],
+    %человек- кто он  - книга
+    %in_list(People,[alekseev,_])
+    in_list(People,[_,poet,dramaturg]),
+    in_list(People,[_,astronom,_]),
+    in_list(People,[_,prozaik,_]),
+    in_list(People,[_,dramaturg,_]),
     
+    in_list(People,[_,_,astronom]),
+    in_list(People,[_,_,prozaik]),
+    in_list(People,[_,_,poet]),
+    not(in_list(People,[_,prozaik,astronom])),
+    in_list(People,[borisov,_,Which]),
+    in_list(People,[dmitriev,Which,_]),
+    in_list(People,[alekseev,_,_]),
+    in_list(People,[konstantinov,_,_]),
+    not(in_list(People,[alekseev,A,A])),
+    not(in_list(People,[dmitriev,B,B])),
+    not(in_list(People,[borisov,C,C])),
+    not(in_list(People,[konstantinov,D,D])),
+    write(People),!.
+
     
 
     
