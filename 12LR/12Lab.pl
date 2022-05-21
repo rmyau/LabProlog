@@ -34,7 +34,7 @@ multDel(X,Del,Res,CurMult):-
     multDel(X,D1,Res,NewMult).
 
 %13Найти количество всех пар дружных чисел до 10000
-sumDel(X,Sum):-sumDel(X,X,Sum,0),!.
+sumDel(X,Sum):-X1 is X-1,sumDel(X,X1,Sum,0),!.
 sumDel(_,0,Sum,Sum):-!.
 sumDel(X,Del,Sum,CurSum):-
     (0 is X mod Del, NewSum is CurSum+Del; NewSum is CurSum),
@@ -42,10 +42,15 @@ sumDel(X,Del,Sum,CurSum):-
 
 countFriend(Res):-countFriend(1000,1000,Res,0).
 countFriend(0,0,Res,Res):-!.
-countFriend(X,0,Res,NowRes):-X1 is X-1,countFriend(X1,X1,Res,NowRes).
+countFriend(X,0,Res,NowRes):-write(X),nl,X1 is X-1,countFriend(X1,X1,Res,NowRes).
 countFriend(X,Y,Res,NowRes):-Y1 is Y-1, sumDel(X,DelX),sumDel(Y,DelY),
-    (X is Y ,NewRes is NowRes,!;(DelX is DelY, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
+    (X is Y ,NewRes is NowRes,!;(DelX is Y,DelY is X, NewRes is NowRes+1;NewRes is NowRes)), countFriend(X,Y1,Res,NewRes).
 
+countFriend2(Res):- countFriend2(10000,Res,0).
+countFriend2(0,Res,R):-Res is R div 2.
+countFriend2(X,Res,Count):-sumDel(X,Sum), X1 is X-1,
+    (not(Sum is X),Sum<10000,Y is Sum,sumDel(Y,Sum2),X is Sum2,write(X),write(" "), write(Sum), nl,C1 is Count+1,!;C1 is Count),
+    countFriend2(X1,Res,C1).   
 %14 Найти длину списка
 lenList([H|T],Res):-lenList([H|T],Res,0).
 lenList([],Res,Res):-!.
