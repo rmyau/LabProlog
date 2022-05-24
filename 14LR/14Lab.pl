@@ -56,3 +56,17 @@ mostOftenWord([H|T],[Cur|Tail],Word,W,MaxCount):- Cur>MaxCount, W1 is H,Max1 is 
 
 %Дана строка, определить самое частое слово
 task13 :- read_str(A,_), get_words(A,Words,_),mostOftenWord(Words,Word),write_str(Word).
+
+%Вывести первые три символа и последний три символа,
+%если длина строки больше 5 Иначе вывести первый символ столько
+%раз, какова длина строки.
+writeN(_,0):-!.
+writeN([El],N):-put(El),nl,N1 is N-1, writeN([El],N1). 
+
+last3Letters([H1|[H2|[H3|[]]]]):-write_str([H1]),nl,write_str([H2]),nl,
+    write_str([H3]),!.
+last3Letters([_|T]):-last3Letters(T).
+first3Letters([H1,H2,H3|_]):-write_str([H1]),nl,write_str([H2]),nl,
+    write_str([H3]),nl.
+task14 :- read_str([H|T],N),
+    (N>5,first3Letters([H|T]),last3Letters(T),!; writeN([H],N)).
