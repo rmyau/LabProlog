@@ -70,3 +70,15 @@ first3Letters([H1,H2,H3|_]):-write_str([H1]),nl,write_str([H2]),nl,
     write_str([H3]),nl.
 task14 :- read_str([H|T],N),
     (N>5,first3Letters([H|T]),last3Letters(T),!; writeN([H],N)).
+
+%Показать номера символов, совпадающих с последним,символом строки.
+lastSimbol([L|[]],L):-!.
+lastSimbol([_|T],L):- lastSimbol(T,L).
+
+outIndSimbol([S],List):- outIndSimbol([S],List,0).
+outIndSimbol(_,[],_):-!.
+outIndSimbol([S],[S|T],Ind):-write(Ind),nl,I1 is Ind+1,
+    outIndSimbol([S],T,I1),!.
+outIndSimbol([S],[_|T],Ind):- I1 is Ind+1, outIndSimbol([S],T,I1).
+
+task15:- read_str(A,_), lastSimbol(A,L),outIndSimbol([L],A). 
