@@ -82,3 +82,33 @@ outIndSimbol([S],[S|T],Ind):-write(Ind),nl,I1 is Ind+1,
 outIndSimbol([S],[_|T],Ind):- I1 is Ind+1, outIndSimbol([S],T,I1).
 
 task15:- read_str(A,_), lastSimbol(A,L),outIndSimbol([L],A). 
+
+%2 задание
+
+%дан файл, Прочитать из файла строки и вывести длину наибольшей строки.
+
+%флаг - конец файла или enter
+read_str_f(A,N,Flag):-get0(X),r_str_f(X,A,[],N,0,Flag).
+r_str_f(-1,A,A,N,N,0):-!.
+r_str_f(10,A,A,N,N,1):-!.
+r_str_f(X,A,B,N,K,Flag):-K1 is K+1,append(B,[X],B1),get0(X1),r_str_f(X1,A,B1,N,K1,Flag).
+
+read_list_str(List,List_len):-read_str_f(A,N,Flag),r_l_s(List,List_len,[A],[N],Flag).
+r_l_s(List,List_len,List,List_len,0):-!.
+r_l_s(List,List_len,Cur_list,Cur_list_len,_):-
+	read_str_f(A,N,Flag),append(Cur_list,[A],C_l),append(Cur_list_len,[N],C_l_l),
+	r_l_s(List,List_len,C_l,C_l_l,Flag).
+
+maxLenStrInFile([H|ListLen],Max):-maxLenStrInFile(ListLen, Max,H).
+maxLenStrInFile([],Max,Max):-!.
+maxLenStrInFile([H|T],Max,M):- H>M, maxLenStrInFile(T,Max,H),!;
+    maxLenStrInFile(T,Max,M).
+
+task2_1:- see('c:/prolog/text.txt'),
+    read_list_str(_,List_len), seen, maxLenStrInFile(List_len,Max),
+    write("Max len = "), write(Max).
+
+
+
+
+
