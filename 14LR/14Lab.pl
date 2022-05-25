@@ -108,7 +108,17 @@ task2_1:- see('c:/prolog/text.txt'),
     read_list_str(_,List_len), seen, maxLenStrInFile(List_len,Max),
     write("Max len = "), write(Max).
 
+%Определить, сколько в файле строк, не содержащих пробелы.
+findSpace([],0):-!.
+findSpace([32|_],1):-!.
+findSpace([_|T],Flag):-findSpace(T,Flag).
 
+listWithoutSpace(List,N):- lws(List,N,0).
+lws([],N,N):-!.
+lws([H|T],N,CurN):-findSpace(H,Flag), 
+    (Flag is 1, lws(T,N,CurN),!;
+    N1 is CurN+1, lws(T,N,N1)).
 
-
+task2_2:- see('c:/prolog/text.txt'),read_list_str(List,_), seen,
+    listWithoutSpace(List,N), write(N).
 
