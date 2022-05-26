@@ -7,6 +7,12 @@ write_str([H|T]):-put(H),write_str(T).
 
 in_list([El|_],El).
 in_list([_|T],El):-in_list(T,El).
+
+lenList([H|T],Res):-lenList([H|T],Res,0).
+lenList([],Res,Res):-!.
+lenList([_|T], Res,NowRes):-NewRes is NowRes+1, 
+    lenList(T,Res,NewRes).
+
 %Дана строка. Вывести ее три раза через запятую и показать количество символов в ней.
 task11 :- read_str(A,N),write_str(A),write(', '),write_str(A),write(', '),
 		write_str(A),write(', '),write(N).
@@ -75,13 +81,13 @@ task14 :- read_str([H|T],N),
 lastSimbol([L|[]],L):-!.
 lastSimbol([_|T],L):- lastSimbol(T,L).
 
-outIndSimbol([S],List):- outIndSimbol([S],List,0).
-outIndSimbol(_,[],_):-!.
-outIndSimbol([S],[S|T],Ind):-write(Ind),nl,I1 is Ind+1,
-    outIndSimbol([S],T,I1),!.
-outIndSimbol([S],[_|T],Ind):- I1 is Ind+1, outIndSimbol([S],T,I1).
+outIndSimbol([S],List,CountSimb):- outIndSimbol([S],List,CountSimb,0,0).
+outIndSimbol(_,[],Count,Count,_):-!.
+outIndSimbol([S],[S|T],C,Count,Ind):-I1 is Ind+1,C1 is Count+1,
+    outIndSimbol([S],T,C,C1,I1),!.
+outIndSimbol([S],[_|T],C,Count,Ind):- I1 is Ind+1, outIndSimbol([S],T,C,Count,I1).
 
-task15:- read_str(A,_), lastSimbol(A,L),outIndSimbol([L],A). 
+task15:- read_str(A,_), lastSimbol(A,L),outIndSimbol([L],A,_). 
 
 %2 задание
 
@@ -122,3 +128,27 @@ lws([H|T],N,CurN):-findSpace(H,Flag),
 task2_2:- see('c:/prolog/text.txt'),read_list_str(List,_), seen,
     listWithoutSpace(List,N), write(N).
 
+
+%найти и вывести на экран только те строки, в которых букв
+%А больше, чем в среднем на строку.
+
+%общее количество символов в строке  
+countSymbols(List,S,Res):- char_code(S, Code),
+    countSymbols(List,[Code],Res,0).
+countSymbols([],_,Res,Res):-!.
+countSymbols([H|T],S,R,Res):- outIndSimbol(S,H,CountS),
+    R1 is Res+CountS, countSymbols(T,S,R,R1).
+
+moreAvgA([],_):-!.
+moreAvgA([H|T],Avg):- char_code("A",A1), char_code("a",A2),
+    outIndSimbol([A1],H,Res1), outIndSimbol([A2],H,Res2),
+    Count is Res1+Res2,Count>Avg, write_str(H),nl,
+    moreAvgA(T,Avg),!;moreAvgA(T,Avg).
+    
+task2_3:- see('c:/prolog/text2.txt'),read_list_str(List,_), seen,
+    lenList(List,Len), countSymbols(List,"A",CountA),countSymbols(List,"a",Counta),
+    CountSymbA is CountA+Counta, Average is CountSymbA/Len, write(Average),nl,
+    moreAvgA(List,Average).
+
+
+ 
