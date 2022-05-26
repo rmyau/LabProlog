@@ -177,4 +177,21 @@ countRus([H|T],C,C1):- H>1039, H<1104, C2 is C1+1, countRus(T,C,C2),!;
     countRus(T,C,C1).
 task3:- read_str(A,_),countRus(A,Count), write(Count).
 
+%4.9 Необходимо проверить образуют ли строчные символы латиницы палиндром.
+littleLet(A,List):- littleLet(A,List,[]).
+littleLet([],List,List):-!.
+littleLet([H|T],List,CurL):-H>96, H<123, concat(CurL,[H],NewL),littleLet(T,List,NewL),!; 
+    littleLet(T,List,CurL).
+
+rev([H|T],L):- rev([H|T],L,[]).
+rev([],L,L):-!.
+rev([H|T],L,CurL):- rev(T,L,[H|CurL]).
+
+palindrom([H|T]):- rev([H|T],[H2|Tail]),pal([H|T],[H2|Tail]).
+pal([],[]):-!.
+pal([H|T],[H1|T1]):-H is H1, pal(T,T1),!.
+
+task4:- read_str(A,_),  littleLet(A,List),palindrom(List).
+
+
 
