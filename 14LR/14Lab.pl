@@ -13,6 +13,8 @@ lenList([],Res,Res):-!.
 lenList([_|T], Res,NowRes):-NewRes is NowRes+1, 
     lenList(T,Res,NewRes).
 
+write_list([]) :- !.
+write_list([X|T]) :- write(X), nl, write_list(T).
 %Дана строка. Вывести ее три раза через запятую и показать количество символов в ней.
 task11 :- read_str(A,N),write_str(A),write(', '),write_str(A),write(', '),
 		write_str(A),write(', '),write(N).
@@ -144,11 +146,23 @@ moreAvgA([H|T],Avg):- char_code("A",A1), char_code("a",A2),
     outIndSimbol([A1],H,Res1), outIndSimbol([A2],H,Res2),
     Count is Res1+Res2,Count>Avg, write_str(H),nl,
     moreAvgA(T,Avg),!;moreAvgA(T,Avg).
-    
+
 task2_3:- see('c:/prolog/text2.txt'),read_list_str(List,_), seen,
     lenList(List,Len), countSymbols(List,"A",CountA),countSymbols(List,"a",Counta),
     CountSymbA is CountA+Counta, Average is CountSymbA/Len, write(Average),nl,
     moreAvgA(List,Average).
 
+%вывести самое частое слово
 
- 
+concat([], List2, List2).
+concat([H|T], List2, [H|NewList]) :- concat(T, List2, NewList).
+
+listWords(List,BigList):-concatElList(List,BigList,[]).
+concatElList([],BL,BL):-!.
+concatElList([H|T],BL,List):-get_words(H,Words,_),
+    concat(List,Words,NewList),concatElList(T,BL,NewList).
+
+task2_4:-see('c:/prolog/text3.txt'),read_list_str(List,_), seen,
+    listWords(List,Words), write(Words),mostOftenWord(Words,Word), write_str(Word),nl.
+    
+
