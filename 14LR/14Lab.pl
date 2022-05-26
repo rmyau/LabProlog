@@ -164,5 +164,17 @@ concatElList([H|T],BL,List):-get_words(H,Words,_),
 
 task2_4:-see('c:/prolog/text3.txt'),read_list_str(List,_), seen,
     listWords(List,Words), write(Words),mostOftenWord(Words,Word), write_str(Word),nl.
-    
+
+%вывести в отдельный файл строки, состоящие из слов, не
+%повторяющихся в исходном файле.
+
+%фуфуфу
+
+%3.1 Необходимо найти общее количество русских символов.
+countRus(A,Count):- countRus(A,Count,0).
+countRus([],C,C):-!.
+countRus([H|T],C,C1):- H>1039, H<1104, C2 is C1+1, countRus(T,C,C2),!;
+    countRus(T,C,C1).
+task3:- read_str(A,_),countRus(A,Count), write(Count).
+
 
